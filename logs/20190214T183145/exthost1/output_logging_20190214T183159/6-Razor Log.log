@@ -1,0 +1,23 @@
+--------------------------------------------------------------------------------
+Razor.VSCode version 1.0.0-alpha2-20181112.3
+--------------------------------------------------------------------------------
+Razor's trace level is currently set to 'Off'
+ - To log issues with the Razor experience in VSCode you can file issues at https://github.com/aspnet/Razor.VSCode
+ - To change Razor's trace level set 'razor.trace' to 'Off', 'Messages' or 'Verbose' and then restart VSCode.
+-----------------------------------------------------------------------------------------------------------------------------
+
+Failed to load =�, error: libunwind.so.8: cannot open shared object file: No such file or directory
+Failed to bind to CoreCLR at '/root/.vscode/extensions/ms-vscode.csharp-1.17.1/.razor/libcoreclr.so'
+[Info  - 6:32:01 PM] Connection to server got closed. Server will restart.
+Failed to load }�, error: libunwind.so.8: cannot open shared object file: No such file or directory
+Failed to bind to CoreCLR at '/root/.vscode/extensions/ms-vscode.csharp-1.17.1/.razor/libcoreclr.so'
+[Info  - 6:32:01 PM] Connection to server got closed. Server will restart.
+Failed to load }, error: libunwind.so.8: cannot open shared object file: No such file or directory
+Failed to bind to CoreCLR at '/root/.vscode/extensions/ms-vscode.csharp-1.17.1/.razor/libcoreclr.so'
+[Info  - 6:32:01 PM] Connection to server got closed. Server will restart.
+Failed to load m�, error: libunwind.so.8: cannot open shared object file: No such file or directory
+Failed to bind to CoreCLR at '/root/.vscode/extensions/ms-vscode.csharp-1.17.1/.razor/libcoreclr.so'
+[Info  - 6:32:01 PM] Connection to server got closed. Server will restart.
+Failed to load �, error: libunwind.so.8: cannot open shared object file: No such file or directory
+Failed to bind to CoreCLR at '/root/.vscode/extensions/ms-vscode.csharp-1.17.1/.razor/libcoreclr.so'
+[Error - 6:32:01 PM] Connection to server got closed. Server will not be restarted.
