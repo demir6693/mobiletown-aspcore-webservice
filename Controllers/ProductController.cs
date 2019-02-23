@@ -19,7 +19,9 @@ public class ProductController : ControllerBase
     [HttpGet]
     public IEnumerable<Product> GetProduct()
     {
-        return _context.Products;
+        return _context.Products
+        .Include(p => p.Group)
+        .Include(p => p.Brand);
     }
 
     [HttpGet("{id}")]

@@ -11,5 +11,5 @@ public class ProductPicture
     public Product Product { get; set; }
     
     [StringLength(65535)]
-    public string picutre { get; set; }
+    public string picture { get; set; }
 }

@@ -23,7 +23,8 @@ namespace webshopApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDescription>>> GetProductDescriptions()
         {
-            return await _context.ProductDescriptions.ToListAsync();
+            return await _context.ProductDescriptions
+            .ToListAsync();
         }
 
         // GET: api/ProductDescriptions/5

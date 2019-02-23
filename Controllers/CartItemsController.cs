@@ -28,16 +28,18 @@ namespace webshopApi.Controllers
 
         // GET: api/CartItems/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CartItems>> GetCartItems(int id)
+        public ActionResult<CartItems> GetCartItems(int id)
         {
-            var cartItems = await _context.CartItems.FindAsync(id);
+            var cartItems = _context.CartItems
+            .Include(p => p.Product)
+            .Where(c => c.cartId == id);
 
             if (cartItems == null)
             {
                 return NotFound();
             }
 
-            return cartItems;
+            return Ok(cartItems);
         }
 
         // PUT: api/CartItems/5

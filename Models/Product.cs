@@ -7,7 +7,7 @@ public class Product
     public int Id { get; set; }
     
     [StringLength(255)]
-    public string Name;
+    public string Name { get; set; }
 
     public decimal Msrp { get; set; }
 

@@ -28,16 +28,18 @@ namespace webshopApi.Controllers
 
         // GET: api/ProductPictures/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductPicture>> GetProductPicture(int id)
+        public ActionResult<IEnumerable<ProductPicture>> GetProductPicture(int id)
         {
-            var productPicture = await _context.ProductPictures.FindAsync(id);
+            var productPicture = _context.ProductPictures
+            .Include(p => p.Product)
+            .Where(p => p.idProd == id);
 
             if (productPicture == null)
             {
                 return NotFound();
             }
 
-            return productPicture;
+            return Ok(productPicture);
         }
 
         // PUT: api/ProductPictures/5
