@@ -2,14 +2,16 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace webshopApi.Migrations
 {
     [DbContext(typeof(webContextDb))]
-    partial class webContextDbModelSnapshot : ModelSnapshot
+    [Migration("20190223112924_productAll")]
+    partial class productAll
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,42 +30,6 @@ namespace webshopApi.Migrations
                     b.ToTable("Brands");
                 });
 
-            modelBuilder.Entity("Cart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("dateCreated");
-
-                    b.Property<int>("userId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("userId");
-
-                    b.ToTable("Carts");
-                });
-
-            modelBuilder.Entity("CartItems", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("cartId");
-
-                    b.Property<int>("kolicina");
-
-                    b.Property<int>("productId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("cartId");
-
-                    b.HasIndex("productId");
-
-                    b.ToTable("CartItems");
-                });
-
             modelBuilder.Entity("Group", b =>
                 {
                     b.Property<int>("Id")
@@ -75,26 +41,6 @@ namespace webshopApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("cartId");
-
-                    b.Property<DateTime>("dateOrder");
-
-                    b.Property<int>("userId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("cartId");
-
-                    b.HasIndex("userId");
-
-                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Product", b =>
@@ -223,40 +169,6 @@ namespace webshopApi.Migrations
                     b.HasIndex("IdUser");
 
                     b.ToTable("UsersInfo");
-                });
-
-            modelBuilder.Entity("Cart", b =>
-                {
-                    b.HasOne("User", "User")
-                        .WithMany()
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CartItems", b =>
-                {
-                    b.HasOne("Cart", "Cart")
-                        .WithMany()
-                        .HasForeignKey("cartId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("productId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Order", b =>
-                {
-                    b.HasOne("Cart", "Cart")
-                        .WithMany()
-                        .HasForeignKey("cartId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("User", "User")
-                        .WithMany()
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Product", b =>

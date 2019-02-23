@@ -1,12 +1,18 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class User
 {
     public int Id {get; set;}
     
     [StringLength(255)]
-    public string Name {get; set;}
+    public string Email {get; set;}
 
     [StringLength(255)]
-    public string LastName {get; set;}
+    public string Password {get; set;}
+
+    public int IdUserInfo { get; set;}
+
+    [ForeignKey("IdUserInfo")]
+    public UsersInfo UsersInfo { get; set;}
 }
