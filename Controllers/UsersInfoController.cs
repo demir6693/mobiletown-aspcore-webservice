@@ -53,7 +53,7 @@ public class UsersInfoController : ControllerBase
    [HttpPost]
    public async Task<IActionResult> PostUserInfo([FromBody] UsersInfo userInfo)
    {
-       if(!ModelState.IsValid)
+       if(!ModelState.IsValid || !UserExist(userInfo.IdUser))
        {
            return BadRequest();
        }
@@ -86,7 +86,7 @@ public class UsersInfoController : ControllerBase
        }
        catch(DbUpdateConcurrencyException)
        {
-           if(!UserExists(id))
+           if(!UserInfoExists(id))
            {
                return NotFound();
            }
@@ -121,8 +121,22 @@ public class UsersInfoController : ControllerBase
        return Ok(userInfo);
    }
 
-   private bool UserExists(int id)
+    private bool UserInfoExists(int id)
     {
-            return _context.UsersInfo.Any(e => e.Id == id);
+        return _context.UsersInfo.Any(e => e.Id == id);
+    }
+
+    private bool UserExist(int id)
+    {
+        var user = _context.User.SingleOrDefault(u => u.Id == id);
+
+        if(user == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }

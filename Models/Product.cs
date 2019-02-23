@@ -25,14 +25,4 @@ public class Product
     
     [ForeignKey("brandId")]
     public Brand Brand { get; set; }
-
-    public int descriptionId { get; set; }
-    
-    [ForeignKey("descriptionId")]
-    public  List<ProductDescription> ProductDescription { get; set; }
-
-    public int pictureId { get; set; }
-    
-    [ForeignKey("pictureId")]
-    public List<ProductPicture> ProductPictures { get; set; }
 }
