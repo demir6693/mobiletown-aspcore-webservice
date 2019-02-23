@@ -10,9 +10,4 @@ public class User
 
     [StringLength(255)]
     public string Password {get; set;}
-
-    public int IdUserInfo { get; set;}
-
-    [ForeignKey("IdUserInfo")]
-    public UsersInfo UsersInfo { get; set;}
 }

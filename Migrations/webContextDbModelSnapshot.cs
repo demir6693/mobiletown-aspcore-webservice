@@ -179,14 +179,10 @@ namespace webshopApi.Migrations
                     b.Property<string>("Email")
                         .HasMaxLength(255);
 
-                    b.Property<int>("IdUserInfo");
-
                     b.Property<string>("Password")
                         .HasMaxLength(255);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdUserInfo");
 
                     b.ToTable("User");
                 });
@@ -294,14 +290,6 @@ namespace webshopApi.Migrations
                     b.HasOne("Product")
                         .WithMany("ProductPictures")
                         .HasForeignKey("pictureId");
-                });
-
-            modelBuilder.Entity("User", b =>
-                {
-                    b.HasOne("UsersInfo", "UsersInfo")
-                        .WithMany()
-                        .HasForeignKey("IdUserInfo")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("UsersInfo", b =>
