@@ -2,14 +2,16 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace webshopApi.Migrations
 {
     [DbContext(typeof(webContextDb))]
-    partial class webContextDbModelSnapshot : ModelSnapshot
+    [Migration("20190225164126_OrderItems")]
+    partial class OrderItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,24 +97,6 @@ namespace webshopApi.Migrations
                     b.HasIndex("userId");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("OrderItems", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("orderId");
-
-                    b.Property<int>("productId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("orderId");
-
-                    b.HasIndex("productId");
-
-                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("Product", b =>
@@ -261,19 +245,6 @@ namespace webshopApi.Migrations
                     b.HasOne("User", "User")
                         .WithMany()
                         .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("OrderItems", b =>
-                {
-                    b.HasOne("Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("orderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("productId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
