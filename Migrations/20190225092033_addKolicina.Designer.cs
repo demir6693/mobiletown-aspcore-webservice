@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace webshopApi.Migrations
 {
     [DbContext(typeof(webContextDb))]
-    [Migration("20190223191404_createDb")]
-    partial class createDb
+    [Migration("20190225092033_addKolicina")]
+    partial class addKolicina
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -112,6 +112,8 @@ namespace webshopApi.Migrations
                     b.Property<int>("brandId");
 
                     b.Property<int>("groupId");
+
+                    b.Property<int?>("kolicina");
 
                     b.Property<string>("picture")
                         .HasMaxLength(65535);

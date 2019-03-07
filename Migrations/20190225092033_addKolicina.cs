@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace webshopApi.Migrations
 {
-    public partial class createDb : Migration
+    public partial class addKolicina : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,7 +58,8 @@ namespace webshopApi.Migrations
                     price = table.Column<decimal>(nullable: false),
                     picture = table.Column<string>(maxLength: 65535, nullable: true),
                     groupId = table.Column<int>(nullable: false),
-                    brandId = table.Column<int>(nullable: false)
+                    brandId = table.Column<int>(nullable: false),
+                    kolicina = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
