@@ -10,6 +10,5 @@ public class ProductPicture
     [ForeignKey("idProd")]
     public Product Product { get; set; }
     
-    [StringLength(65535)]
     public string picture { get; set; }
 }
