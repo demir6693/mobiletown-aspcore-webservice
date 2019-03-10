@@ -29,16 +29,16 @@ namespace webshopApi.Controllers
 
         // GET: api/ProductDescriptions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductDescription>> GetProductDescription(int id)
+        public ActionResult<ProductDescription> GetProductDescription(int id)
         {
-            var productDescription = await _context.ProductDescriptions.FindAsync(id);
+            var productDescription = _context.ProductDescriptions.Where(p => p.productId == id);
 
             if (productDescription == null)
             {
                 return NotFound();
             }
 
-            return productDescription;
+            return Ok(productDescription);
         }
 
         // PUT: api/ProductDescriptions/5

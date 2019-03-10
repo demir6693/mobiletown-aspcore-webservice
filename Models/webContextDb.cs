@@ -38,7 +38,7 @@ public class webContextDb : DbContext
     {
         if(!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseMySQL("server=localhost;database=webshopmobiletown;user=root;password=;");
+            optionsBuilder.UseMySQL("server=localhost;database=webshopmobiletown;user=root;password=;CharSet=utf8;");
         }
     }
 }

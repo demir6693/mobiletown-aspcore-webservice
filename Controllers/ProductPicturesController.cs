@@ -75,7 +75,7 @@ namespace webshopApi.Controllers
         // POST: api/ProductPictures
         [HttpPost]
         public async Task<ActionResult<ProductPicture>> PostProductPicture(ProductPicture productPicture)
-        {
+        {   
             _context.ProductPictures.Add(productPicture);
             await _context.SaveChangesAsync();
 
