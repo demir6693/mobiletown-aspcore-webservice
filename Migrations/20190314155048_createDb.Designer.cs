@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace webshopApi.Migrations
 {
     [DbContext(typeof(webContextDb))]
-    [Migration("20190223175229_createdDb")]
-    partial class createdDb
+    [Migration("20190314155048_createDb")]
+    partial class createDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,6 +99,24 @@ namespace webshopApi.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("OrderItems", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("orderId");
+
+                    b.Property<int>("productId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("orderId");
+
+                    b.HasIndex("productId");
+
+                    b.ToTable("OrderItems");
+                });
+
             modelBuilder.Entity("Product", b =>
                 {
                     b.Property<int>("Id")
@@ -106,12 +124,14 @@ namespace webshopApi.Migrations
 
                     b.Property<decimal>("Msrp");
 
+                    b.Property<string>("Name")
+                        .HasMaxLength(255);
+
                     b.Property<int>("brandId");
 
                     b.Property<int>("groupId");
 
-                    b.Property<string>("picture")
-                        .HasMaxLength(65535);
+                    b.Property<int?>("pictureId");
 
                     b.Property<decimal>("price");
 
@@ -120,6 +140,8 @@ namespace webshopApi.Migrations
                     b.HasIndex("brandId");
 
                     b.HasIndex("groupId");
+
+                    b.HasIndex("pictureId");
 
                     b.ToTable("Products");
                 });
@@ -151,8 +173,7 @@ namespace webshopApi.Migrations
 
                     b.Property<int>("idProd");
 
-                    b.Property<string>("picutre")
-                        .HasMaxLength(65535);
+                    b.Property<string>("picture");
 
                     b.HasKey("Id");
 
@@ -245,6 +266,19 @@ namespace webshopApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("OrderItems", b =>
+                {
+                    b.HasOne("Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("orderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("productId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Product", b =>
                 {
                     b.HasOne("Brand", "Brand")
@@ -256,6 +290,10 @@ namespace webshopApi.Migrations
                         .WithMany()
                         .HasForeignKey("groupId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ProductPicture", "productPicture")
+                        .WithMany()
+                        .HasForeignKey("pictureId");
                 });
 
             modelBuilder.Entity("ProductDescription", b =>

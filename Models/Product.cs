@@ -12,10 +12,11 @@ public class Product
     public decimal Msrp { get; set; }
 
     public decimal price { get; set; }
-    
-    [StringLength(65535)]
-    public string picture { get; set; }
 
+    public int? pictureId { get; set; }
+
+    [ForeignKey("pictureId")]
+    public ProductPicture productPicture { get; set; }
     public int groupId { get; set; }
     
     [ForeignKey("groupId")]

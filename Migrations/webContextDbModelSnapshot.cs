@@ -129,8 +129,7 @@ namespace webshopApi.Migrations
 
                     b.Property<int>("groupId");
 
-                    b.Property<string>("picture")
-                        .HasMaxLength(65535);
+                    b.Property<int?>("pictureId");
 
                     b.Property<decimal>("price");
 
@@ -139,6 +138,8 @@ namespace webshopApi.Migrations
                     b.HasIndex("brandId");
 
                     b.HasIndex("groupId");
+
+                    b.HasIndex("pictureId");
 
                     b.ToTable("Products");
                 });
@@ -287,6 +288,10 @@ namespace webshopApi.Migrations
                         .WithMany()
                         .HasForeignKey("groupId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ProductPicture", "productPicture")
+                        .WithMany()
+                        .HasForeignKey("pictureId");
                 });
 
             modelBuilder.Entity("ProductDescription", b =>

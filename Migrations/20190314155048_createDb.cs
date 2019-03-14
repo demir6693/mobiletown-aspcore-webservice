@@ -48,37 +48,6 @@ namespace webshopApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    Msrp = table.Column<decimal>(nullable: false),
-                    price = table.Column<decimal>(nullable: false),
-                    picture = table.Column<string>(maxLength: 65535, nullable: true),
-                    groupId = table.Column<int>(nullable: false),
-                    brandId = table.Column<int>(nullable: false),
-                    descriptionId = table.Column<int>(nullable: false),
-                    pictureId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Products_Brands_brandId",
-                        column: x => x.brandId,
-                        principalTable: "Brands",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Products_Groups_groupId",
-                        column: x => x.groupId,
-                        principalTable: "Groups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Carts",
                 columns: table => new
                 {
@@ -125,58 +94,60 @@ namespace webshopApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductDescriptions",
+                name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    productId = table.Column<int>(nullable: false),
-                    descriptionName = table.Column<string>(maxLength: 255, nullable: true),
-                    description = table.Column<string>(maxLength: 255, nullable: true),
-                    descriptionId = table.Column<int>(nullable: true)
+                    userId = table.Column<int>(nullable: false),
+                    cartId = table.Column<int>(nullable: false),
+                    dateOrder = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductDescriptions", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductDescriptions_Products_descriptionId",
-                        column: x => x.descriptionId,
-                        principalTable: "Products",
+                        name: "FK_Orders_Carts_cartId",
+                        column: x => x.cartId,
+                        principalTable: "Carts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductDescriptions_Products_productId",
-                        column: x => x.productId,
-                        principalTable: "Products",
+                        name: "FK_Orders_User_userId",
+                        column: x => x.userId,
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductPictures",
+                name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    idProd = table.Column<int>(nullable: false),
-                    picutre = table.Column<string>(maxLength: 65535, nullable: true),
-                    pictureId = table.Column<int>(nullable: true)
+                    Name = table.Column<string>(maxLength: 255, nullable: true),
+                    Msrp = table.Column<decimal>(nullable: false),
+                    price = table.Column<decimal>(nullable: false),
+                    pictureId = table.Column<int>(nullable: true),
+                    groupId = table.Column<int>(nullable: false),
+                    brandId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductPictures", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductPictures_Products_idProd",
-                        column: x => x.idProd,
-                        principalTable: "Products",
+                        name: "FK_Products_Brands_brandId",
+                        column: x => x.brandId,
+                        principalTable: "Brands",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductPictures_Products_pictureId",
-                        column: x => x.pictureId,
-                        principalTable: "Products",
+                        name: "FK_Products_Groups_groupId",
+                        column: x => x.groupId,
+                        principalTable: "Groups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -207,28 +178,68 @@ namespace webshopApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "OrderItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    userId = table.Column<int>(nullable: false),
-                    cartId = table.Column<int>(nullable: false),
-                    dateOrder = table.Column<DateTime>(nullable: false)
+                    orderId = table.Column<int>(nullable: false),
+                    productId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Carts_cartId",
-                        column: x => x.cartId,
-                        principalTable: "Carts",
+                        name: "FK_OrderItems_Orders_orderId",
+                        column: x => x.orderId,
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Orders_User_userId",
-                        column: x => x.userId,
-                        principalTable: "User",
+                        name: "FK_OrderItems_Products_productId",
+                        column: x => x.productId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductDescriptions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    productId = table.Column<int>(nullable: false),
+                    descriptionName = table.Column<string>(maxLength: 255, nullable: true),
+                    description = table.Column<string>(maxLength: 255, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductDescriptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductDescriptions_Products_productId",
+                        column: x => x.productId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductPictures",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    idProd = table.Column<int>(nullable: false),
+                    picture = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductPictures", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductPictures_Products_idProd",
+                        column: x => x.idProd,
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -249,6 +260,16 @@ namespace webshopApi.Migrations
                 column: "userId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_orderId",
+                table: "OrderItems",
+                column: "orderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_productId",
+                table: "OrderItems",
+                column: "productId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_cartId",
                 table: "Orders",
                 column: "cartId");
@@ -257,11 +278,6 @@ namespace webshopApi.Migrations
                 name: "IX_Orders_userId",
                 table: "Orders",
                 column: "userId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductDescriptions_descriptionId",
-                table: "ProductDescriptions",
-                column: "descriptionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductDescriptions_productId",
@@ -274,11 +290,6 @@ namespace webshopApi.Migrations
                 column: "idProd");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductPictures_pictureId",
-                table: "ProductPictures",
-                column: "pictureId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Products_brandId",
                 table: "Products",
                 column: "brandId");
@@ -289,42 +300,62 @@ namespace webshopApi.Migrations
                 column: "groupId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_pictureId",
+                table: "Products",
+                column: "pictureId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UsersInfo_IdUser",
                 table: "UsersInfo",
                 column: "IdUser");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Products_ProductPictures_pictureId",
+                table: "Products",
+                column: "pictureId",
+                principalTable: "ProductPictures",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_ProductPictures_Products_idProd",
+                table: "ProductPictures");
+
             migrationBuilder.DropTable(
                 name: "CartItems");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "OrderItems");
 
             migrationBuilder.DropTable(
                 name: "ProductDescriptions");
 
             migrationBuilder.DropTable(
-                name: "ProductPictures");
+                name: "UsersInfo");
 
             migrationBuilder.DropTable(
-                name: "UsersInfo");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Carts");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "User");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Brands");
 
             migrationBuilder.DropTable(
                 name: "Groups");
+
+            migrationBuilder.DropTable(
+                name: "ProductPictures");
         }
     }
 }

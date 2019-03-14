@@ -23,7 +23,8 @@ namespace webshopApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductPicture>>> GetProductPictures()
         {
-            return await _context.ProductPictures.ToListAsync();
+            return await _context.ProductPictures
+            .ToListAsync();
         }
 
         // GET: api/ProductPictures/5
@@ -31,7 +32,6 @@ namespace webshopApi.Controllers
         public ActionResult<IEnumerable<ProductPicture>> GetProductPicture(int id)
         {
             var productPicture = _context.ProductPictures
-            .Include(p => p.Product)
             .Where(p => p.idProd == id);
 
             if (productPicture == null)
