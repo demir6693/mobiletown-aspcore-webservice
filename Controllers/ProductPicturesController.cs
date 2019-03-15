@@ -21,10 +21,10 @@ namespace webshopApi.Controllers
 
         // GET: api/ProductPictures
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductPicture>>> GetProductPictures()
+        public IEnumerable<ProductPicture> GetProductPictures()
         {
-            return await _context.ProductPictures
-            .ToListAsync();
+            return  _context.ProductPictures
+            .Include(p => p.Product);
         }
 
         // GET: api/ProductPictures/5

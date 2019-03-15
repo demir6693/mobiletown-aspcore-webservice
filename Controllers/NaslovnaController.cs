@@ -27,6 +27,7 @@ public class NaslovnaController : ControllerBase
         {
            dict[item.Name] = _context.Products
            .Include(p => p.Brand)
+           .Include(p => p.TitlePictureProduct)
            .Where(p => p.groupId == item.Id).Take(4);
         }
         

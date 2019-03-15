@@ -34,7 +34,10 @@ public class ProductController : ControllerBase
         }
 
         var products = await _context.Products
-        .FindAsync(id);
+        .Include(p => p.TitlePictureProduct)
+        .Include(p => p.Group)
+        .Include(p => p.Brand)
+        .SingleOrDefaultAsync(p => p.Id == id);
 
         if(products == null)
         {

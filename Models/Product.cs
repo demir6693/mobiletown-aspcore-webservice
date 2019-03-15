@@ -13,10 +13,10 @@ public class Product
 
     public decimal price { get; set; }
 
-    public int? pictureId { get; set; }
-
+    public int pictureId { get; set; }
+    
     [ForeignKey("pictureId")]
-    public ProductPicture productPicture { get; set; }
+    public TitlePictureProduct TitlePictureProduct { get; set; }
     public int groupId { get; set; }
     
     [ForeignKey("groupId")]

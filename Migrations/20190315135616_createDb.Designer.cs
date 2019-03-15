@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace webshopApi.Migrations
 {
     [DbContext(typeof(webContextDb))]
-    [Migration("20190314155048_createDb")]
+    [Migration("20190315135616_createDb")]
     partial class createDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,7 +131,7 @@ namespace webshopApi.Migrations
 
                     b.Property<int>("groupId");
 
-                    b.Property<int?>("pictureId");
+                    b.Property<int>("pictureId");
 
                     b.Property<decimal>("price");
 
@@ -180,6 +180,18 @@ namespace webshopApi.Migrations
                     b.HasIndex("idProd");
 
                     b.ToTable("ProductPictures");
+                });
+
+            modelBuilder.Entity("TitlePictureProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("picture");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TitlePictureProducts");
                 });
 
             modelBuilder.Entity("User", b =>
@@ -291,9 +303,10 @@ namespace webshopApi.Migrations
                         .HasForeignKey("groupId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ProductPicture", "productPicture")
+                    b.HasOne("TitlePictureProduct", "TitlePictureProduct")
                         .WithMany()
-                        .HasForeignKey("pictureId");
+                        .HasForeignKey("pictureId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ProductDescription", b =>
