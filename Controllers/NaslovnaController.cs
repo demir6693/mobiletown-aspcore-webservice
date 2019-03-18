@@ -56,22 +56,7 @@ public class NaslovnaController : ControllerBase
         return Ok(products);
     }
 
-    //POST: api/naslovna
-    [HttpPost]
-    public object PostNaslovna([FromBody] CheckModel checkModel)
-    {   
-        var pictureProd = checkModel.pictureIndex;
-
-        object[] picture = new object[pictureProd.Count()];
-      
-        for(int i = 0; i < pictureProd.Count(); i ++)
-        {
-            picture[i] = pictureProd[i];
-            //_context.ProductPictures.Where(p => p.Id == pictureProd[i]);
-        } 
-
-        return picture;
-    }
+  
 
     //PUT: api/naslovna/5
     [HttpPut("{id}")]
