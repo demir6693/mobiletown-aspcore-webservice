@@ -34,6 +34,8 @@ public class webContextDb : DbContext
     public virtual DbSet<Order> Orders { get; set; }
     public virtual DbSet<TitlePictureProduct> TitlePictureProducts { get; set; }
 
+    public virtual DbSet<BrandByGroup> BrandByGroups { get; set; }
+
     public virtual DbSet<OrderItems> OrderItems { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

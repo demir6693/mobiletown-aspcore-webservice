@@ -61,6 +61,32 @@ namespace webshopApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BrandByGroups",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    brandId = table.Column<int>(nullable: false),
+                    groupId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BrandByGroups", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BrandByGroups_Brands_brandId",
+                        column: x => x.brandId,
+                        principalTable: "Brands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BrandByGroups_Groups_groupId",
+                        column: x => x.groupId,
+                        principalTable: "Groups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -264,6 +290,16 @@ namespace webshopApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_BrandByGroups_brandId",
+                table: "BrandByGroups",
+                column: "brandId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BrandByGroups_groupId",
+                table: "BrandByGroups",
+                column: "groupId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CartItems_cartId",
                 table: "CartItems",
                 column: "cartId");
@@ -331,6 +367,9 @@ namespace webshopApi.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "BrandByGroups");
+
             migrationBuilder.DropTable(
                 name: "CartItems");
 

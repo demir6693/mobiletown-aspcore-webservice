@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace webshopApi.Migrations
 {
     [DbContext(typeof(webContextDb))]
-    [Migration("20190315135616_createDb")]
+    [Migration("20190319111007_createDb")]
     partial class createDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,24 @@ namespace webshopApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
+                });
+
+            modelBuilder.Entity("BrandByGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("brandId");
+
+                    b.Property<int>("groupId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("brandId");
+
+                    b.HasIndex("groupId");
+
+                    b.ToTable("BrandByGroups");
                 });
 
             modelBuilder.Entity("Cart", b =>
@@ -242,6 +260,19 @@ namespace webshopApi.Migrations
                     b.HasIndex("IdUser");
 
                     b.ToTable("UsersInfo");
+                });
+
+            modelBuilder.Entity("BrandByGroup", b =>
+                {
+                    b.HasOne("Brand", "Brand")
+                        .WithMany()
+                        .HasForeignKey("brandId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("groupId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Cart", b =>
