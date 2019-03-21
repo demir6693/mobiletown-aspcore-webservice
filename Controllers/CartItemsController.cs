@@ -32,6 +32,7 @@ namespace webshopApi.Controllers
         {
             var cartItems = _context.CartItems
             .Include(p => p.Product)
+            .Include(p => p.Cart)
             .Where(c => c.cartId == id);
 
             if (cartItems == null)
