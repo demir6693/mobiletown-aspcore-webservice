@@ -33,19 +33,14 @@ public class UsersInfoController : ControllerBase
        }
 
        var userInfo = await _context.UsersInfo
-       .FindAsync(id);
+       .Include(u => u.user)
+       .SingleOrDefaultAsync(u => u.IdUser == id);
 
-       if(userInfo == null)
-       {
-           return NotFound();
-       }
-       else
-       {
-           userInfo = await _context.UsersInfo
-           .Include(u => u.user)
-           .SingleOrDefaultAsync(u => u.Id == id);
-       }
-
+        if(userInfo == null)
+        {
+            return NoContent();
+        }
+        
        return Ok(userInfo);
    } 
 
