@@ -23,7 +23,10 @@ namespace webshopApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
-            return await _context.Orders.ToListAsync();
+            return await _context.Orders
+            .Include(u => u.UsersInfo)
+            .Include(c => c.Cart)
+            .ToListAsync();
         }
 
         // GET: api/Orders/5
@@ -31,9 +34,9 @@ namespace webshopApi.Controllers
         public ActionResult<Order> GetOrder(int id)
         {
             var order = _context.Orders
-            .Include(u => u.User)
+            .Include(u => u.UsersInfo)
             .Include(c => c.Cart)
-            .Where(o => o.userId == id);
+            .Where(o => o.userInfoId == id);
 
             if (order == null)
             {

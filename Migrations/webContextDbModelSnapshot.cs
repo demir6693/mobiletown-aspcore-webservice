@@ -104,13 +104,13 @@ namespace webshopApi.Migrations
 
                     b.Property<DateTime>("dateOrder");
 
-                    b.Property<int>("userId");
+                    b.Property<int>("userInfoId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("cartId");
 
-                    b.HasIndex("userId");
+                    b.HasIndex("userInfoId");
 
                     b.ToTable("Orders");
                 });
@@ -301,9 +301,9 @@ namespace webshopApi.Migrations
                         .HasForeignKey("cartId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("User", "User")
+                    b.HasOne("UsersInfo", "UsersInfo")
                         .WithMany()
-                        .HasForeignKey("userId")
+                        .HasForeignKey("userInfoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

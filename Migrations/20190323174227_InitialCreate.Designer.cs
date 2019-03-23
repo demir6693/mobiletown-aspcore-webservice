@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace webshopApi.Migrations
 {
     [DbContext(typeof(webContextDb))]
-    [Migration("20190319111007_createDb")]
-    partial class createDb
+    [Migration("20190323174227_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -106,13 +106,13 @@ namespace webshopApi.Migrations
 
                     b.Property<DateTime>("dateOrder");
 
-                    b.Property<int>("userId");
+                    b.Property<int>("userInfoId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("cartId");
 
-                    b.HasIndex("userId");
+                    b.HasIndex("userInfoId");
 
                     b.ToTable("Orders");
                 });
@@ -303,9 +303,9 @@ namespace webshopApi.Migrations
                         .HasForeignKey("cartId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("User", "User")
+                    b.HasOne("UsersInfo", "UsersInfo")
                         .WithMany()
-                        .HasForeignKey("userId")
+                        .HasForeignKey("userInfoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

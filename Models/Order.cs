@@ -4,10 +4,10 @@ public class Order
 {
     public int Id { get; set; }
 
-    public int userId { get; set; }
+    public int userInfoId { get; set; }
 
-    [ForeignKey("userId")]
-    public User User { get; set; }
+    [ForeignKey("userInfoId")]
+    public UsersInfo UsersInfo { get; set; }
 
     public int cartId { get; set; }
 

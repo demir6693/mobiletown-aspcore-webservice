@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace webshopApi.Migrations
 {
-    public partial class createDb : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -242,7 +242,7 @@ namespace webshopApi.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    userId = table.Column<int>(nullable: false),
+                    userInfoId = table.Column<int>(nullable: false),
                     cartId = table.Column<int>(nullable: false),
                     dateOrder = table.Column<DateTime>(nullable: false)
                 },
@@ -256,9 +256,9 @@ namespace webshopApi.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Orders_User_userId",
-                        column: x => x.userId,
-                        principalTable: "User",
+                        name: "FK_Orders_UsersInfo_userInfoId",
+                        column: x => x.userInfoId,
+                        principalTable: "UsersInfo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -330,9 +330,9 @@ namespace webshopApi.Migrations
                 column: "cartId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_userId",
+                name: "IX_Orders_userInfoId",
                 table: "Orders",
-                column: "userId");
+                column: "userInfoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductDescriptions_productId",
@@ -383,9 +383,6 @@ namespace webshopApi.Migrations
                 name: "ProductPictures");
 
             migrationBuilder.DropTable(
-                name: "UsersInfo");
-
-            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
@@ -393,6 +390,9 @@ namespace webshopApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Carts");
+
+            migrationBuilder.DropTable(
+                name: "UsersInfo");
 
             migrationBuilder.DropTable(
                 name: "Brands");
