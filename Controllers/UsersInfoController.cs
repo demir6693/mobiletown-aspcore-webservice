@@ -33,7 +33,6 @@ public class UsersInfoController : ControllerBase
        }
 
        var userInfo = await _context.UsersInfo
-       .Include(u => u.user)
        .SingleOrDefaultAsync(u => u.IdUser == id);
 
         if(userInfo == null)

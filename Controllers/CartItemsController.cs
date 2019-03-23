@@ -23,7 +23,10 @@ namespace webshopApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CartItems>>> GetCartItems()
         {
-            return await _context.CartItems.ToListAsync();
+            return await _context.CartItems
+            .Include(p => p.Product)
+            .Include(p => p.Cart)
+            .ToListAsync();
         }
 
         // GET: api/CartItems/5

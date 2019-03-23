@@ -23,7 +23,10 @@ namespace webshopApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderItems>>> GetOrders()
         {
-            return await _context.OrderItems.ToListAsync();
+            return await _context.OrderItems
+            .Include(u => u.Product)
+            .Include(c => c.Order)
+            .ToListAsync();
         }
 
         // GET: api/Orders/5
