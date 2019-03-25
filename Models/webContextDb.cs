@@ -37,6 +37,10 @@ public class webContextDb : DbContext
     public virtual DbSet<BrandByGroup> BrandByGroups { get; set; }
 
     public virtual DbSet<OrderItems> OrderItems { get; set; }
+
+    public virtual DbSet<Receipt> Receipts { get; set; }
+
+    public virtual DbSet<ReceiptItems> ReceiptItems { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if(!optionsBuilder.IsConfigured)

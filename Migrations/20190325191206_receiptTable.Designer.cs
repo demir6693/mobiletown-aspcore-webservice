@@ -2,14 +2,16 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace webshopApi.Migrations
 {
     [DbContext(typeof(webContextDb))]
-    partial class webContextDbModelSnapshot : ModelSnapshot
+    [Migration("20190325191206_receiptTable")]
+    partial class receiptTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -202,8 +204,6 @@ namespace webshopApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("DateofReceipt");
 
                     b.Property<int>("userInfoId");
 
