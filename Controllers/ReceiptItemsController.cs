@@ -32,7 +32,7 @@ public class ReceiptItemsController : ControllerBase
         var receiptItems = _context.ReceiptItems
         .Include(r => r.Receipt)
         .Include(p => p.Product)
-        .Where(p => p.productId == id);
+        .Where(p => p.receiptId == id);
 
         if(receiptItems == null)
         {
