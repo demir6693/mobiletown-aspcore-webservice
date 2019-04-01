@@ -9,4 +9,5 @@ public class ReceiptItems
     public Receipt Receipt { get; set; }
     public int productId { get; set; }
     public Product Product { get; set; }
+    public int? kolicina { get; set; }
 }

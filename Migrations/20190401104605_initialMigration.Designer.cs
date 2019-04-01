@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace webshopApi.Migrations
 {
     [DbContext(typeof(webContextDb))]
-    [Migration("20190325191407_receiptTableaddDateTime")]
-    partial class receiptTableaddDateTime
+    [Migration("20190401104605_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -122,6 +122,8 @@ namespace webshopApi.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("kolicina");
+
                     b.Property<int>("orderId");
 
                     b.Property<int>("productId");
@@ -152,6 +154,10 @@ namespace webshopApi.Migrations
                     b.Property<int>("pictureId");
 
                     b.Property<decimal>("price");
+
+                    b.Property<short?>("stanje")
+                        .HasColumnName("Active")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -220,6 +226,8 @@ namespace webshopApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("kolicina");
 
                     b.Property<int>("productId");
 

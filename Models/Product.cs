@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -26,4 +27,8 @@ public class Product
     
     [ForeignKey("brandId")]
     public Brand Brand { get; set; }
+    
+    [Column("stanje", TypeName = "bit")]
+    [DefaultValue(true)]
+    public bool? stanje { get; set; }
 }

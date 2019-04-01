@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace webshopApi.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -97,7 +97,8 @@ namespace webshopApi.Migrations
                     price = table.Column<decimal>(nullable: false),
                     pictureId = table.Column<int>(nullable: false),
                     groupId = table.Column<int>(nullable: false),
-                    brandId = table.Column<int>(nullable: false)
+                    brandId = table.Column<int>(nullable: false),
+                    Active = table.Column<short>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -264,13 +265,34 @@ namespace webshopApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Receipts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    userInfoId = table.Column<int>(nullable: false),
+                    DateofReceipt = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Receipts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Receipts_UsersInfo_userInfoId",
+                        column: x => x.userInfoId,
+                        principalTable: "UsersInfo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
                     orderId = table.Column<int>(nullable: false),
-                    productId = table.Column<int>(nullable: false)
+                    productId = table.Column<int>(nullable: false),
+                    kolicina = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -285,6 +307,33 @@ namespace webshopApi.Migrations
                         name: "FK_OrderItems_Products_productId",
                         column: x => x.productId,
                         principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReceiptItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    receiptId = table.Column<int>(nullable: false),
+                    productId = table.Column<int>(nullable: false),
+                    kolicina = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReceiptItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ReceiptItems_Products_productId",
+                        column: x => x.productId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ReceiptItems_Receipts_receiptId",
+                        column: x => x.receiptId,
+                        principalTable: "Receipts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -360,6 +409,21 @@ namespace webshopApi.Migrations
                 column: "pictureId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ReceiptItems_productId",
+                table: "ReceiptItems",
+                column: "productId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReceiptItems_receiptId",
+                table: "ReceiptItems",
+                column: "receiptId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Receipts_userInfoId",
+                table: "Receipts",
+                column: "userInfoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UsersInfo_IdUser",
                 table: "UsersInfo",
                 column: "IdUser");
@@ -383,16 +447,19 @@ namespace webshopApi.Migrations
                 name: "ProductPictures");
 
             migrationBuilder.DropTable(
+                name: "ReceiptItems");
+
+            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Carts");
+                name: "Receipts");
 
             migrationBuilder.DropTable(
-                name: "UsersInfo");
+                name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "Brands");
@@ -402,6 +469,9 @@ namespace webshopApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "TitlePictureProducts");
+
+            migrationBuilder.DropTable(
+                name: "UsersInfo");
 
             migrationBuilder.DropTable(
                 name: "User");

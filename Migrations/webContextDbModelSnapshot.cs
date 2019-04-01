@@ -120,6 +120,8 @@ namespace webshopApi.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("kolicina");
+
                     b.Property<int>("orderId");
 
                     b.Property<int>("productId");
@@ -150,6 +152,10 @@ namespace webshopApi.Migrations
                     b.Property<int>("pictureId");
 
                     b.Property<decimal>("price");
+
+                    b.Property<short?>("stanje")
+                        .HasColumnName("Active")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -218,6 +224,8 @@ namespace webshopApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("kolicina");
 
                     b.Property<int>("productId");
 

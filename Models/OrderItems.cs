@@ -11,4 +11,5 @@ public class OrderItems
     public int productId { get; set; }
     [ForeignKey("productId")]
     public Product Product { get; set; }
+    public int? kolicina { get; set; }
 }
